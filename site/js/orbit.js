@@ -1,7 +1,7 @@
 /* ── Floating orbit hero ──
-   Circular product photos scattered over the black hero, each drifting
-   gently on its own, and pulling toward the cursor when it's nearby —
-   snapping back when the mouse moves away. */
+   Large glass-like circular product photos, overlapping and bleeding off
+   the hero's edges, each drifting gently on its own and pulling toward
+   the cursor when it's nearby — snapping back when the mouse moves away. */
 (function () {
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -9,22 +9,20 @@
     });
   }
 
-  /* top/left are % of the hero field; size in px; delay staggers the idle float.
-     Ordered so the first 4 entries alone (our current product count) land in
-     all four corners — later entries only kick in once more products exist. */
+  /* cx/cy = center position as % of the hero field (can bleed past 0/100).
+     size = clamp(min, viewport-relative, max) so circles scale with the
+     window but stay large. delay staggers the idle float. */
   var LAYOUT = [
-    { top: '10%', left: '10%', size: 160, delay: '0s' },
-    { top: '12%', right: '8%', size: 142, delay: '-2.1s' },
-    { top: '58%', left: '8%', size: 132, delay: '-4.4s' },
-    { top: '56%', right: '8%', size: 152, delay: '-1.2s' },
-    { top: '40%', left: '34%', size: 208, delay: '-3.6s' },
-    { top: '2%', left: '52%', size: 108, delay: '-0.6s' },
-    { top: '70%', left: '54%', size: 116, delay: '-5.1s' },
-    { top: '32%', right: '30%', size: 94, delay: '-2.8s' },
+    { cx: '6%', cy: '46%', size: 'clamp(240px, 30vw, 420px)', delay: '0s' },
+    { cx: '34%', cy: '58%', size: 'clamp(300px, 38vw, 520px)', delay: '-3.2s' },
+    { cx: '64%', cy: '38%', size: 'clamp(280px, 35vw, 480px)', delay: '-1.6s' },
+    { cx: '94%', cy: '60%', size: 'clamp(230px, 28vw, 400px)', delay: '-4.8s' },
+    { cx: '48%', cy: '14%', size: 'clamp(190px, 22vw, 320px)', delay: '-2.4s' },
+    { cx: '80%', cy: '90%', size: 'clamp(170px, 20vw, 280px)', delay: '-5.6s' },
   ];
 
-  var PULL_RADIUS = 160;
-  var MAX_PULL = 26;
+  var PULL_RADIUS = 220;
+  var MAX_PULL = 40;
 
   window.renderOrbit = function (products) {
     var hero = document.getElementById('orbit-hero');
@@ -39,12 +37,14 @@
 
     field.innerHTML = picks.map(function (p, idx) {
       var pos = layout[idx];
-      var hpos = pos.right ? ('right:' + pos.right) : ('left:' + pos.left);
       return (
         '<a class="orbit-circle" href="product.html?id=' + encodeURIComponent(p.id) + '" ' +
-          'style="top:' + pos.top + ';' + hpos + ';width:' + pos.size + 'px;height:' + pos.size + 'px;animation-delay:' + pos.delay + ';">' +
-          '<span class="orbit-circle-inner">' +
-            '<img src="' + esc(p.thumbnail) + '" alt="' + esc(p.name) + '" loading="lazy">' +
+          'style="top:' + pos.cy + ';left:' + pos.cx + ';width:' + pos.size + ';height:' + pos.size + ';z-index:' + (10 + idx) + ';">' +
+          '<span class="orbit-circle-float" style="animation-delay:' + pos.delay + ';">' +
+            '<span class="orbit-circle-inner">' +
+              '<img src="' + esc(p.thumbnail) + '" alt="' + esc(p.name) + '" loading="lazy">' +
+              '<span class="orbit-circle-sheen"></span>' +
+            '</span>' +
           '</span>' +
         '</a>'
       );
@@ -63,7 +63,7 @@
           var pull = (1 - dist / PULL_RADIUS) * MAX_PULL;
           var angle = Math.atan2(dy, dx);
           c.style.transform = 'translate(' + (Math.cos(angle) * pull).toFixed(1) + 'px, ' +
-            (Math.sin(angle) * pull).toFixed(1) + 'px) scale(' + (1 + (1 - dist / PULL_RADIUS) * 0.06).toFixed(3) + ')';
+            (Math.sin(angle) * pull).toFixed(1) + 'px) scale(' + (1 + (1 - dist / PULL_RADIUS) * 0.08).toFixed(3) + ')';
         } else {
           c.style.transform = '';
         }

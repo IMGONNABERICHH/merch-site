@@ -238,41 +238,95 @@ main {
 .orbit-circle {
   position: absolute;
   display: block;
-  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.orbit-circle:hover { z-index: 40 !important; }
+
+.orbit-circle-float {
+  display: block;
+  width: 100%;
+  height: 100%;
   animation: orbitFloat 8s ease-in-out infinite;
   will-change: transform;
 }
 
 @keyframes orbitFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-16px); }
+  50% { transform: translateY(-18px); }
 }
 
 .orbit-circle-inner {
+  position: relative;
   display: block;
   width: 100%;
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  background: #0f0f0f;
-  box-shadow: 0 24px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06);
+  background: #111;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.07);
   transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
 }
 
 .orbit-circle-inner img {
+  position: relative;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 14%;
-  filter: contrast(1.03) brightness(0.96);
+  padding: 16%;
+  filter: contrast(1.03) brightness(0.97);
+}
+
+.orbit-circle-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 24%, rgba(255,255,255,0.1) 0%, transparent 40%);
+  pointer-events: none;
 }
 
 .orbit-caption {
   position: absolute;
   left: 52px;
   bottom: 56px;
-  z-index: 2;
+  z-index: 50;
   pointer-events: none;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.8);
+}
+
+.orbit-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 22px;
+  margin-bottom: 14px;
+}
+
+.orbit-title {
+  font-family: var(--sans);
+  font-size: clamp(34px, 5.2vw, 68px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.orbit-title sup {
+  font-size: 0.32em;
+  font-weight: 700;
+  top: -0.9em;
+}
+
+.orbit-title-sub {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--faded);
+  border-left: 1px solid var(--hairline-strong);
+  padding-left: 18px;
 }
 
 .orbit-eyebrow {
@@ -281,28 +335,6 @@ main {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--gray);
-  margin-bottom: 14px;
-}
-
-.orbit-title {
-  font-family: var(--serif);
-  font-size: clamp(40px, 6vw, 84px);
-  font-weight: 300;
-  line-height: 1;
-  color: var(--white);
-}
-
-.orbit-title .seven {
-  font-feature-settings: 'lnum' 1;
-  font-variant-numeric: lining-nums;
-  position: relative;
-  top: -0.045em;
-  display: inline-block;
-}
-
-.orbit-title em {
-  font-style: italic;
-  color: var(--faded);
 }
 
 @media (max-width: 900px) {

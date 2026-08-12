@@ -28,9 +28,25 @@ exports.handler = async function (event) {
       };
     }));
 
-    cache = products;
+    /* Collapse accidental duplicate listings (same product synced twice under
+       slightly different names) — keep the cheaper/more complete one. */
+    const byName = new Map();
+    products.forEach(function (p) {
+      const key = p.name.trim().toLowerCase();
+      const existing = byName.get(key);
+      if (!existing) { byName.set(key, p); return; }
+      const pPrice = parseFloat(p.price_min);
+      const ePrice = parseFloat(existing.price_min);
+      const better = pPrice !== ePrice
+        ? (pPrice < ePrice ? p : existing)
+        : (p.variant_count > existing.variant_count ? p : existing);
+      byName.set(key, better);
+    });
+    const deduped = Array.from(byName.values());
+
+    cache = deduped;
     cacheAt = Date.now();
-    return json(event, 200, { products: products });
+    return json(event, 200, { products: deduped });
   } catch (err) {
     return json(event, err.status === 404 ? 404 : 502, { error: err.message });
   }
