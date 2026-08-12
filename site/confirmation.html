@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed — 7 L'ANGES Merch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/store.css">
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">
+      <a href="https://7-langes.com"><span class="seven">7</span> L'ANGES</a>
+      <span class="merch-tag">MERCH</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Shop</a></li>
+      <li><a href="https://7-langes.com">Studio</a></li>
+      <li><span id="cart-trigger">Cart&nbsp;(<span id="cart-count">0</span>)</span></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="confirm-wrap">
+      <p class="confirm-eyebrow">Order Confirmed</p>
+      <h1 class="confirm-title">Merci. <em>It's in motion.</em></h1>
+      <div class="confirm-order-num">Order &nbsp;<span id="order-num">—</span></div>
+
+      <div class="next-steps">
+        <div class="next-step">
+          <span class="next-step-num">01</span>
+          <p class="next-step-text"><strong>Confirmation email.</strong> A receipt is on its way to <span id="order-email">your inbox</span>.</p>
+        </div>
+        <div class="next-step">
+          <span class="next-step-num">02</span>
+          <p class="next-step-text"><strong>Printed to order.</strong> Every piece is made when you order it — production takes 2–5 business days.</p>
+        </div>
+        <div class="next-step">
+          <span class="next-step-num">03</span>
+          <p class="next-step-text"><strong>Shipping.</strong> You'll get a tracking link by email the moment it leaves the facility.</p>
+        </div>
+        <div class="next-step">
+          <span class="next-step-num">04</span>
+          <p class="next-step-text"><strong>Questions?</strong> Write to us through <a href="https://7-langes.com" style="color:var(--white);text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(255,255,255,0.2)">7-langes.com</a> with your order number.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:52px">
+        <a class="btn-outline" href="index.html">Back to Shop</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span><span class="lining">7</span> L'ANGES © 2026</span>
+    <a href="https://7-langes.com">7-langes.com</a>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    (function () {
+      const qs = new URLSearchParams(location.search);
+      const saved = JSON.parse(sessionStorage.getItem('7l_last_order') || 'null');
+      const orderId = qs.get('order') || (saved && saved.order_id);
+      if (orderId) document.getElementById('order-num').textContent = '#' + orderId;
+      if (saved && saved.email) document.getElementById('order-email').textContent = saved.email;
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — 7 L'ANGES Merch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/store.css">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">
+      <a href="https://7-langes.com"><span class="seven">7</span> L'ANGES</a>
+      <span class="merch-tag">MERCH</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Shop</a></li>
+      <li><a href="https://7-langes.com">Studio</a></li>
+      <li><span id="cart-trigger">Cart&nbsp;(<span id="cart-count">0</span>)</span></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section-header">
+      <h1 class="section-title">Checkout</h1>
+      <span class="section-meta">Secure payment via Stripe</span>
+    </div>
+
+    <div id="checkout-root" class="checkout-layout">
+      <div id="checkout-steps">
+
+        <!-- STEP 1 · CONTACT + SHIPPING ADDRESS -->
+        <section class="checkout-step">
+          <div class="step-head"><span class="step-num">01</span><h2 class="step-title">Contact &amp; Shipping</h2></div>
+          <form id="address-form" class="step-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="f-name">Full name</label>
+                <input class="form-input" id="f-name" name="name" autocomplete="name" placeholder="Your name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-email">Email</label>
+                <input class="form-input" id="f-email" name="email" type="email" autocomplete="email" placeholder="your@email.com" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label class="form-label" for="f-address1">Address</label>
+                <input class="form-input" id="f-address1" name="address1" autocomplete="address-line1" placeholder="Street address" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label class="form-label" for="f-address2">Apt / Suite <span style="color:var(--dim)">(optional)</span></label>
+                <input class="form-input" id="f-address2" name="address2" autocomplete="address-line2" placeholder="Apt, suite, unit">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="f-city">City</label>
+                <input class="form-input" id="f-city" name="city" autocomplete="address-level2" placeholder="City" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-zip">ZIP / Postal code</label>
+                <input class="form-input" id="f-zip" name="zip" autocomplete="postal-code" placeholder="ZIP" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="f-country">Country</label>
+                <select class="form-select" id="f-country" name="country" autocomplete="country" required></select>
+              </div>
+              <div class="form-group" id="state-group">
+                <label class="form-label" for="f-state">State / Province</label>
+                <select class="form-select" id="f-state" name="state"></select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="f-phone">Phone <span style="color:var(--dim)">(optional)</span></label>
+                <input class="form-input" id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="For delivery questions">
+              </div>
+            </div>
+            <button class="btn" type="submit" id="address-continue">Calculate Shipping</button>
+          </form>
+        </section>
+
+        <!-- STEP 2 · SHIPPING METHOD -->
+        <section class="checkout-step">
+          <div class="step-head"><span class="step-num">02</span><h2 class="step-title">Shipping Method</h2></div>
+          <div class="step-body locked" id="shipping-body">
+            <div id="ship-options" class="ship-options"></div>
+            <div style="margin-top:32px">
+              <button class="btn" id="shipping-continue" disabled>Continue to Payment</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 3 · PAYMENT -->
+        <section class="checkout-step">
+          <div class="step-head"><span class="step-num">03</span><h2 class="step-title">Payment</h2></div>
+          <div class="step-body locked" id="payment-body">
+            <div id="payment-element"></div>
+            <div id="payment-error"></div>
+            <button class="btn btn-block" id="pay-btn" disabled>Pay Now</button>
+            <div class="product-note" style="margin-top:20px">Payments are processed by Stripe. Card details never touch our servers.</div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <aside class="summary">
+        <div class="summary-title">Order Summary</div>
+        <div id="summary-items"></div>
+        <div class="summary-totals">
+          <div class="summary-row"><span>Subtotal</span><span id="sum-subtotal">—</span></div>
+          <div class="summary-row"><span>Shipping</span><span id="sum-shipping">—</span></div>
+          <div class="summary-row grand"><span>Total</span><span id="sum-total">—</span></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <span><span class="lining">7</span> L'ANGES © 2026</span>
+    <a href="https://7-langes.com">7-langes.com</a>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

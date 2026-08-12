@@ -1,0 +1,8 @@
+# Netlify config for the API half of the store (and, if you prefer,
+# you can host the whole site here instead of GitHub Pages — the static
+# frontend deploys from site/ automatically).
+[build]
+  publish = "site"
+  functions = "netlify/functions"
+
+# Frontend calls the functions at /.netlify/functions/<name>
