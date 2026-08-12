@@ -13,12 +13,12 @@
   var LAYOUT = [
     { top: '10%', left: '12%', size: 168, delay: '0s' },
     { top: '4%', left: '54%', size: 132, delay: '-2.1s' },
-    { top: '30%', left: '78%', size: 152, delay: '-4.4s' },
+    { top: '30%', right: '10%', size: 152, delay: '-4.4s' },
     { top: '46%', left: '30%', size: 210, delay: '-1.2s' },
     { top: '58%', left: '6%', size: 118, delay: '-3.6s' },
     { top: '62%', left: '62%', size: 138, delay: '-0.6s' },
-    { top: '14%', left: '86%', size: 104, delay: '-5.1s' },
-    { top: '68%', left: '88%', size: 122, delay: '-2.8s' },
+    { top: '14%', right: '5%', size: 104, delay: '-5.1s' },
+    { top: '68%', right: '4%', size: 122, delay: '-2.8s' },
   ];
 
   var PULL_RADIUS = 160;
@@ -39,9 +39,10 @@
 
     field.innerHTML = picks.map(function (p, idx) {
       var pos = LAYOUT[idx];
+      var hpos = pos.right ? ('right:' + pos.right) : ('left:' + pos.left);
       return (
         '<a class="orbit-circle" href="product.html?id=' + encodeURIComponent(p.id) + '" ' +
-          'style="top:' + pos.top + ';left:' + pos.left + ';width:' + pos.size + 'px;height:' + pos.size + 'px;animation-delay:' + pos.delay + ';">' +
+          'style="top:' + pos.top + ';' + hpos + ';width:' + pos.size + 'px;height:' + pos.size + 'px;animation-delay:' + pos.delay + ';">' +
           '<span class="orbit-circle-inner">' +
             '<img src="' + esc(p.thumbnail) + '" alt="' + esc(p.name) + '" loading="lazy">' +
           '</span>' +
