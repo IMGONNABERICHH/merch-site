@@ -6,7 +6,7 @@
    STRIPE_PUBLISHABLE_KEY: your pk_live_... (or pk_test_...) key.
    Publishable keys are safe to expose in frontend code. */
 window.MERCH_CONFIG = {
-  API_BASE: '',            // e.g. 'https://7langes-merch-api.netlify.app/.netlify/functions'
-  STRIPE_PUBLISHABLE_KEY: '', // e.g. 'pk_live_...'
+  API_BASE: 'https://bright-kashata-af865d.netlify.app/.netlify/functions',
+  STRIPE_PUBLISHABLE_KEY: 'pk_test_51U3Wce7ywGv01exS89HTFumXSGWqeTBFhfTAACFfZcBMU1oBTRT22zXQI2Hf4nWoe3kkRdUDaHF4wGRZcdxv2iff00rLY4vbgN',
   MAIN_SITE: 'https://7-langes.com',
 };
