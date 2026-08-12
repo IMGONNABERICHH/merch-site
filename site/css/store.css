@@ -125,6 +125,10 @@ main {
   min-height: calc(100vh - 120px);
 }
 
+#demo-banner:not(:empty) {
+  padding: 150px 52px 0;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -221,18 +225,28 @@ main {
 }
 .text-link:hover { color: var(--white); }
 
-/* ─── ORBIT HERO ─── */
+/* ─── ORBIT SHOP ─── */
 .orbit-hero {
   position: relative;
-  height: 78vh;
-  min-height: 520px;
+  min-height: 100vh;
   overflow: hidden;
   background: var(--black);
+  padding-top: 130px;
 }
 
 .orbit-field {
   position: absolute;
   inset: 0;
+}
+
+.orbit-field .loading,
+.orbit-field .drawer-empty,
+.orbit-field .error-note {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
 }
 
 .orbit-circle {
@@ -283,6 +297,41 @@ main {
   border-radius: 50%;
   background: radial-gradient(circle at 30% 24%, rgba(255,255,255,0.1) 0%, transparent 40%);
   pointer-events: none;
+}
+
+.orbit-cap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  opacity: 0.8;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 60;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.9);
+}
+
+.orbit-circle:hover .orbit-cap { opacity: 1; }
+
+.orbit-cap-below { top: calc(100% + 16px); }
+.orbit-cap-above { bottom: calc(100% + 16px); }
+
+.orbit-cap-name {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--white);
+}
+
+.orbit-cap-price {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--faded);
 }
 
 .orbit-caption {
@@ -338,81 +387,24 @@ main {
 }
 
 @media (max-width: 900px) {
-  .orbit-hero { height: 62vh; min-height: 420px; }
-  .orbit-caption { left: 28px; bottom: 36px; }
+  .orbit-hero { padding-top: 110px; }
+  .orbit-caption { left: 28px; }
 }
 
-@media (max-width: 560px) {
-  .orbit-hero { display: none; }
-}
-
-/* ─── CATALOG GRID ─── */
-.shop-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
-}
-
-.shop-item {
-  position: relative;
-  cursor: pointer;
-  background: #0f0f0f;
-  display: block;
-}
-
-.shop-item-img {
-  position: relative;
-  aspect-ratio: 4/5;
-  overflow: hidden;
-}
-
-.shop-item-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
-  filter: contrast(1.04) brightness(0.92);
-}
-
-.shop-item:hover .shop-item-img img {
-  transform: scale(1.06);
-  filter: contrast(1.04) brightness(1);
-}
-
-.shop-item-index {
-  position: absolute;
-  top: 18px;
-  right: 20px;
-  z-index: 2;
-  font-family: var(--serif);
-  font-size: 11px;
-  color: rgba(255,255,255,0.35);
-  font-style: italic;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.8);
-}
-
-.shop-item-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  padding: 18px 4px 26px;
-}
-
-.shop-item-name {
-  font-family: var(--serif);
-  font-size: 19px;
-  font-weight: 400;
-  line-height: 1.25;
-}
-
-.shop-item-price {
-  font-family: var(--sans);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: var(--faded);
-  white-space: nowrap;
+@media (max-width: 700px) {
+  .orbit-hero { min-height: auto; padding: 110px 20px 60px; }
+  .orbit-caption { position: static; margin-bottom: 40px; text-shadow: none; }
+  .orbit-field {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 56px 24px;
+  }
+  .orbit-circle { position: static !important; transform: none !important; }
+  .orbit-cap { position: static; transform: none; opacity: 1; margin-top: 12px; text-shadow: none; }
+  .orbit-cap-below, .orbit-cap-above { top: auto; bottom: auto; }
+  .orbit-circle-float { animation: none; }
 }
 
 /* ─── PRODUCT DETAIL ─── */
