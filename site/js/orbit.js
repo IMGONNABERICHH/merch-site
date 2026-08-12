@@ -9,16 +9,18 @@
     });
   }
 
-  /* top/left are % of the hero field; size in px; delay staggers the idle float */
+  /* top/left are % of the hero field; size in px; delay staggers the idle float.
+     Ordered so the first 4 entries alone (our current product count) land in
+     all four corners — later entries only kick in once more products exist. */
   var LAYOUT = [
-    { top: '10%', left: '12%', size: 168, delay: '0s' },
-    { top: '4%', left: '54%', size: 132, delay: '-2.1s' },
-    { top: '30%', right: '10%', size: 152, delay: '-4.4s' },
-    { top: '46%', left: '30%', size: 210, delay: '-1.2s' },
-    { top: '58%', left: '6%', size: 118, delay: '-3.6s' },
-    { top: '62%', left: '62%', size: 138, delay: '-0.6s' },
-    { top: '14%', right: '5%', size: 104, delay: '-5.1s' },
-    { top: '68%', right: '4%', size: 122, delay: '-2.8s' },
+    { top: '10%', left: '10%', size: 160, delay: '0s' },
+    { top: '12%', right: '8%', size: 142, delay: '-2.1s' },
+    { top: '58%', left: '8%', size: 132, delay: '-4.4s' },
+    { top: '56%', right: '8%', size: 152, delay: '-1.2s' },
+    { top: '40%', left: '34%', size: 208, delay: '-3.6s' },
+    { top: '2%', left: '52%', size: 108, delay: '-0.6s' },
+    { top: '70%', left: '54%', size: 116, delay: '-5.1s' },
+    { top: '32%', right: '30%', size: 94, delay: '-2.8s' },
   ];
 
   var PULL_RADIUS = 160;
@@ -30,15 +32,13 @@
     if (!hero || !field) return;
     if (!products || !products.length) { hero.style.display = 'none'; return; }
 
-    var picks = [];
-    var i = 0;
-    while (picks.length < LAYOUT.length) {
-      picks.push(products[i % products.length]);
-      i++;
-    }
+    /* one circle per unique product — never repeat the same item */
+    var count = Math.min(products.length, LAYOUT.length);
+    var picks = products.slice(0, count);
+    var layout = LAYOUT.slice(0, count);
 
     field.innerHTML = picks.map(function (p, idx) {
-      var pos = LAYOUT[idx];
+      var pos = layout[idx];
       var hpos = pos.right ? ('right:' + pos.right) : ('left:' + pos.left);
       return (
         '<a class="orbit-circle" href="product.html?id=' + encodeURIComponent(p.id) + '" ' +

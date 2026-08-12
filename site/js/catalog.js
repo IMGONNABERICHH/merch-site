@@ -36,7 +36,7 @@
         );
       }).join('');
       document.getElementById('catalog-meta').textContent =
-        String(products.length).padStart(2, '0') + ' Items · Printed to order';
+        String(products.length).padStart(2, '0') + ' Items';
     })
     .catch(function (err) {
       grid.innerHTML = '<div class="error-note" style="grid-column:1/-1">Could not load products. ' + esc(err.message) + '</div>';

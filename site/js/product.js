@@ -48,7 +48,7 @@
             : '') +
           '<button class="btn btn-block" id="p-add" disabled>Add to Cart</button>' +
           (p.description ? '<div class="product-desc">' + p.description.split('\n').filter(Boolean).map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') + '</div>' : '') +
-          '<div class="product-note">Printed to order · Ships worldwide<br>Please allow 2–5 business days for production</div>' +
+          '<div class="product-note">Ships worldwide<br>Please allow 2–5 business days for production</div>' +
         '</div>' +
       '</div>';
 
