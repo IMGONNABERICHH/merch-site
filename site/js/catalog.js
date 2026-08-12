@@ -16,6 +16,7 @@
 
   window.MerchAPI.products()
     .then(function (products) {
+      if (window.renderOrbit) window.renderOrbit(products);
       if (!products.length) {
         grid.innerHTML = '<div class="drawer-empty" style="grid-column:1/-1">No products yet — check back soon</div>';
         return;
