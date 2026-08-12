@@ -19,12 +19,12 @@
      window but stay large. delay staggers the idle float. cap = caption
      anchor so the label sits sensibly relative to the circle. */
   var LAYOUT = [
-    { cx: '10%', cy: '48%', size: 'clamp(220px, 27vw, 380px)', delay: '0s', cap: 'below' },
-    { cx: '38%', cy: '62%', size: 'clamp(270px, 34vw, 480px)', delay: '-3.2s', cap: 'below' },
-    { cx: '66%', cy: '36%', size: 'clamp(250px, 31vw, 440px)', delay: '-1.6s', cap: 'above' },
-    { cx: '92%', cy: '64%', size: 'clamp(210px, 25vw, 360px)', delay: '-4.8s', cap: 'below' },
-    { cx: '50%', cy: '14%', size: 'clamp(170px, 20vw, 290px)', delay: '-2.4s', cap: 'above' },
-    { cx: '80%', cy: '92%', size: 'clamp(150px, 18vw, 260px)', delay: '-5.6s', cap: 'below' },
+    { cx: '14%', cy: '32%', size: 'clamp(220px, 27vw, 380px)', delay: '0s', cap: 'above' },
+    { cx: '40%', cy: '66%', size: 'clamp(270px, 34vw, 480px)', delay: '-3.2s', cap: 'below' },
+    { cx: '68%', cy: '32%', size: 'clamp(250px, 31vw, 440px)', delay: '-1.6s', cap: 'above' },
+    { cx: '93%', cy: '66%', size: 'clamp(210px, 25vw, 360px)', delay: '-4.8s', cap: 'below' },
+    { cx: '52%', cy: '10%', size: 'clamp(170px, 20vw, 290px)', delay: '-2.4s', cap: 'above' },
+    { cx: '82%', cy: '94%', size: 'clamp(150px, 18vw, 260px)', delay: '-5.6s', cap: 'below' },
   ];
 
   var PULL_RADIUS = 220;

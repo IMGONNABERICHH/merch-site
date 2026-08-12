@@ -343,6 +343,17 @@ main {
   text-shadow: 0 4px 24px rgba(0,0,0,0.8);
 }
 
+.orbit-caption::before {
+  content: '';
+  position: absolute;
+  left: -40px;
+  bottom: -40px;
+  width: calc(100% + 140px);
+  height: calc(100% + 100px);
+  background: radial-gradient(ellipse at 20% 100%, rgba(0,0,0,0.75) 0%, transparent 70%);
+  z-index: -1;
+}
+
 .orbit-title-row {
   display: flex;
   align-items: baseline;
